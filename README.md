@@ -10,6 +10,8 @@ bundle exec ruby x3dh.rb
 Or
 
 ```ruby
+require_relative 'x3dh'
+
 server = Server.new
 alice = Person.new
 bob = Person.new
