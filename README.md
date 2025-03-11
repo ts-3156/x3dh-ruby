@@ -1,4 +1,6 @@
-This repository is X3DH Key Agreement Protocol implementation in Ruby.
+Ruby implementation of The X3DH Key Agreement Protocol.
+
+## Usage
 
 ```ruby
 bundle install
