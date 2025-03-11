@@ -1,4 +1,4 @@
-Ruby implementation of The X3DH Key Agreement Protocol.
+A Ruby implementation of The X3DH Key Agreement Protocol.
 
 ## Usage
 
