@@ -1,5 +1,7 @@
 A Ruby implementation of The X3DH Key Agreement Protocol.
 
+This application is written in very small Ruby code. If you want to implement X3DH in your preferred programming language, it is better to look directly at the Ruby code.
+
 ## Usage
 
 ```ruby
@@ -28,4 +30,8 @@ puts bob.receive_message(*a1)
 b1 = bob.send_message('b1')
 puts alice.receive_message(*b1)
 ```
+
+## Documentation
+
+https://signal.org/docs/specifications/x3dh/
 
