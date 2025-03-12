@@ -45,36 +45,6 @@ module KeyEncoder
   end
 end
 
-module RFC7748Encoder
-  # RFC7748で示されている整数とバイトシーケンスの相互変換は以下の通り。
-  # 今回の実行環境では上記の KeyEncoder.encode と同じ結果になる。
-
-  # RFC7748で示されている decodeLittleEndian のRuby板
-  def self.decode_little_endian(b, bits = 255)
-    # バイトシーケンスを連結して1つの整数にする
-    (0...((bits + 7) / 8)).reduce(0) { |sum, i| sum + (b[i].ord << (8 * i)) }
-  end
-
-  # RFC7748で示されている decodeUCoordinate のRuby板
-  # 入力として与えられた32バイトのバイトシーケンスを同じバイト数の整数に変換する
-  def self.decode_u_coordinate(u, bits = 255)
-    u_list = u.bytes
-    # 使われないビットを無視する
-    if bits % 8 != 0
-      u_list[-1] &= (1 << (bits % 8)) - 1
-    end
-    decode_little_endian(u_list, bits)
-  end
-
-  # RFC7748で示されている encodeUCoordinate のRuby板
-  # 入力として与えられた32バイトの整数を同じバイト数のバイトシーケンスに変換する
-  def self.encode_u_coordinate(u, bits = 255)
-    p = 2 ** 255 - 19 # X25519形式で固定している
-    u = u % p
-    (0...((bits + 7) / 8)).map { |i| (u >> (8 * i)) & 0xff }.pack("C*")
-  end
-end
-
 class Person
   include X3DH
 
