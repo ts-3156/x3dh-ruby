@@ -139,7 +139,7 @@ class Person
     }
   end
 
-  def init_x3dh_receiver(data)
+  def init_x3dh_recipient(data)
     data[:ik_pub] = RbNaCl::PublicKey.new(data[:ik_pub])
     data[:ek_pub] = RbNaCl::PublicKey.new(data[:ek_pub])
     opk = @opk_set[data[:opk_id]]
@@ -192,7 +192,7 @@ if __FILE__ == $0
   prekey_bundle = server.download
 
   x3dh_data = alice.init_x3dh_sender(prekey_bundle)
-  bob.init_x3dh_receiver(x3dh_data)
+  bob.init_x3dh_recipient(x3dh_data)
 
   a1 = alice.send_message('a1')
   puts bob.receive_message(*a1)

@@ -22,7 +22,7 @@ server.upload(**bob.prekey_bundle)
 prekey_bundle = server.download
 
 x3dh_data = alice.init_x3dh_sender(prekey_bundle)
-bob.init_x3dh_receiver(x3dh_data)
+bob.init_x3dh_recipient(x3dh_data)
 
 a1 = alice.send_message('a1')
 puts bob.receive_message(*a1)
