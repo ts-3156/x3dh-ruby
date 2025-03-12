@@ -1,7 +1,7 @@
 require 'openssl'
 require 'rbnacl'
 
-module Util
+module X3DH
   def generate_key_pair
     key = RbNaCl::PrivateKey.generate
     [key, key.public_key]
@@ -76,9 +76,13 @@ module RFC7748Encoder
 end
 
 class Person
-  include Util
+  include X3DH
 
   def initialize
+    init_keys
+  end
+
+  def init_keys
     @ik, @ik_pub = generate_key_pair
     @spk, @spk_pub = generate_key_pair
 
