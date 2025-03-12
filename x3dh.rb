@@ -7,8 +7,8 @@ module X3DH
     [key, key.public_key]
   end
 
-  # key1: X25519形式の秘密鍵
-  # key2: X25519形式の公開鍵
+  # key1: a private key in X25519 format
+  # key2: a public key in X25519 format
   def dh(key1, key2)
     RbNaCl::GroupElement.new(key2).mult(key1)
   end
@@ -37,10 +37,9 @@ module X3DH
 end
 
 module KeyEncoder
-  # 曲線の種類（X25519またはX448）を表す1バイトの定数とRFC7748で規定されている。
-  # u座標のリトルエンディアンエンコードが推奨されている。今回はこれだけよい。
+  # I get the same result as RFC7748Encoder.encode_u_coordinate in my environment (OS X).
   def self.encode(key)
-    # X25519は1、X448は2とする
+    # X25519 is 1 and X448 is 2.
     '1' + key.to_bytes
   end
 end
@@ -84,7 +83,7 @@ class Person
         opk_pub: RbNaCl::PublicKey.new(prekey_bundle[:opk_pub])
     }
 
-    # X3DH以降の通信でも必要になる
+    # This value will be used for sending and receiving messages after X3DH.
     @spk_pub = bundle[:spk_pub]
 
     begin
@@ -139,7 +138,8 @@ class Person
 end
 
 class Server
-  # 何らかの通信路を通るのであればbase64形式でエンコードするのが望ましい
+  # Practically, Base64 encoding conversion must be applied to the data.
+
   def upload(**data)
     @data = data
   end
@@ -161,7 +161,7 @@ if __FILE__ == $0
   alice = Person.new
   bob = Person.new
 
-  # 形式上、公開鍵はサーバーで保存される
+  # Practically, this data is stored on a server.
   server.upload(**bob.prekey_bundle)
   prekey_bundle = server.download
 
