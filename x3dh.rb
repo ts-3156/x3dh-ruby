@@ -100,7 +100,7 @@ class Person
     }
   end
 
-  def init_x3dh_sender(prekey_bundle)
+  def init_x3dh_initiator(prekey_bundle)
     bundle = {
         ik_pub: RbNaCl::PublicKey.new(prekey_bundle[:ik_pub]),
         sk_pub: RbNaCl::VerifyKey.new(prekey_bundle[:sk_pub]),
@@ -139,7 +139,7 @@ class Person
     }
   end
 
-  def init_x3dh_recipient(data)
+  def init_x3dh_responder(data)
     data[:ik_pub] = RbNaCl::PublicKey.new(data[:ik_pub])
     data[:ek_pub] = RbNaCl::PublicKey.new(data[:ek_pub])
     opk = @opk_set[data[:opk_id]]
@@ -191,12 +191,16 @@ if __FILE__ == $0
   server.upload(**bob.prekey_bundle)
   prekey_bundle = server.download
 
-  x3dh_data = alice.init_x3dh_sender(prekey_bundle)
-  bob.init_x3dh_recipient(x3dh_data)
+  x3dh_data = alice.init_x3dh_initiator(prekey_bundle)
+  bob.init_x3dh_responder(x3dh_data)
 
   a1 = alice.send_message('a1')
   puts bob.receive_message(*a1)
-
   b1 = bob.send_message('b1')
   puts alice.receive_message(*b1)
+
+  a2 = alice.send_message('a2')
+  puts bob.receive_message(*a2)
+  b2 = bob.send_message('b2')
+  puts alice.receive_message(*b2)
 end

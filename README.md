@@ -21,14 +21,18 @@ bob = Person.new
 server.upload(**bob.prekey_bundle)
 prekey_bundle = server.download
 
-x3dh_data = alice.init_x3dh_sender(prekey_bundle)
-bob.init_x3dh_recipient(x3dh_data)
+x3dh_data = alice.init_x3dh_initiator(prekey_bundle)
+bob.init_x3dh_responder(x3dh_data)
 
 a1 = alice.send_message('a1')
 puts bob.receive_message(*a1)
-
 b1 = bob.send_message('b1')
 puts alice.receive_message(*b1)
+
+a2 = alice.send_message('a2')
+puts bob.receive_message(*a2)
+b2 = bob.send_message('b2')
+puts alice.receive_message(*b2)
 ```
 
 ## Documentation
