@@ -55,9 +55,9 @@ class Person
     @ik, @ik_pub = generate_key_pair
     @spk, @spk_pub = generate_key_pair
 
-    @sk = RbNaCl::SigningKey.generate
-    @sk_pub = @sk.verify_key
-    @spk_signature = @sk.sign(KeyEncoder.encode(@spk_pub))
+    @_sk = RbNaCl::SigningKey.generate
+    @sk_pub = @_sk.verify_key
+    @spk_signature = @_sk.sign(KeyEncoder.encode(@spk_pub))
 
     @opk_set, @opk_pub_set =
         100.times.map { generate_key_pair }.flatten.partition.with_index { |_, i| i.even? }
