@@ -4,7 +4,7 @@ This application is written in very small Ruby code. If you want to implement X3
 
 ## Usage
 
-```ruby
+```shell
 bundle install
 bundle exec ruby x3dh.rb
 ```
@@ -35,7 +35,7 @@ b2 = bob.send_message('b2')
 puts alice.receive_message(*b2)
 ```
 
-## Documentation
+## Official documentation
 
 https://signal.org/docs/specifications/x3dh/
 

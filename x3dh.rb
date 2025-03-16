@@ -13,7 +13,7 @@ module X3DH
     RbNaCl::GroupElement.new(key2).mult(key1)
   end
 
-  def hkdf_sha256(km, n)
+  def hkdf(km, n)
     ikm = ['ff' * 32].pack('H*') + km
     opt = {
         salt: ['00' * 32].pack('H*'),
@@ -98,7 +98,7 @@ class Person
     dh2 = dh(ek, bundle[:ik_pub])
     dh3 = dh(ek, @spk_pub)
     dh4 = dh(ek, bundle[:opk_pub])
-    @sk = hkdf_sha256([dh1, dh2, dh3, dh4].map(&:to_bytes).join, 0)
+    @sk = hkdf([dh1, dh2, dh3, dh4].map(&:to_bytes).join, 0)
     @ad = KeyEncoder.encode(@ik_pub) + KeyEncoder.encode(bundle[:ik_pub])
 
     ciphertext, nonce = encrypt(@sk, 'Initial message', @ad)
@@ -121,7 +121,7 @@ class Person
     dh2 = dh(@ik, data[:ek_pub])
     dh3 = dh(@spk, data[:ek_pub])
     dh4 = dh(opk, data[:ek_pub])
-    @sk = hkdf_sha256([dh1, dh2, dh3, dh4].map(&:to_bytes).join, 0)
+    @sk = hkdf([dh1, dh2, dh3, dh4].map(&:to_bytes).join, 0)
     @ad = KeyEncoder.encode(data[:ik_pub]) + KeyEncoder.encode(@ik_pub)
 
     {message: decrypt(@sk, data[:message], @ad, data[:nonce])}
