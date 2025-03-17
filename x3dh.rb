@@ -165,8 +165,8 @@ if __FILE__ == $0
   server.upload(**bob.prekey_bundle)
   prekey_bundle = server.download
 
-  x3dh_data = alice.init_x3dh_initiator(prekey_bundle)
-  bob.init_x3dh_responder(x3dh_data)
+  handshake_data = alice.init_x3dh_initiator(prekey_bundle)
+  bob.init_x3dh_responder(handshake_data)
 
   a1 = alice.send_message('a1')
   puts bob.receive_message(*a1)

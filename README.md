@@ -1,6 +1,9 @@
 A Ruby implementation of The X3DH Key Agreement Protocol.
 
-This application is written in very small Ruby code. If you want to implement X3DH in your preferred programming language, it is better to look directly at the Ruby code.
+As much as possible, I have implemented it as described in the official Signal documentation.
+
+This code snippet is written in very small Ruby code. If you want to implement X3DH in your preferred programming language,
+it is better to look directly at the Ruby code.
 
 ## Usage
 
@@ -34,6 +37,14 @@ puts bob.receive_message(*a2)
 b2 = bob.send_message('b2')
 puts alice.receive_message(*b2)
 ```
+
+## Different languages
+
+Ruby version https://github.com/ts-3156/x3dh-ruby
+
+JavaScript version https://github.com/ts-3156/x3dh-javascript
+
+TypeScript version https://github.com/ts-3156/x3dh-typescript
 
 ## Official documentation
 
